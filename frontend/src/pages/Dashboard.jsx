@@ -63,14 +63,17 @@ export default function Dashboard({ user, token, onLogout }) {
   }, [filters, user?.id, user?.user_id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Fetch recent activity
-  const fetchActivity = useCallback(async () => {
-    try {
-      const res = await axios.get('/api/activity')
-      setActivities(res.data.activities || [])
-    } catch {
-      // silently fail — activity is non-critical
-    }
-  }, [])
+ const fetchActivity = useCallback(() => {
+  try {
+    const savedActivities = JSON.parse(
+      localStorage.getItem("activity-log") || "[]"
+    )
+
+    setActivities(savedActivities)
+  } catch {
+    setActivities([])
+  }
+}, [])
 
   // Fetch on mount
   useEffect(() => {
