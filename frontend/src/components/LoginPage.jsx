@@ -1,3 +1,4 @@
+import { API_URL } from '../config'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -31,7 +32,7 @@ export default function LoginPage({ onLogin }) {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await axios.post('/auth/login', { email, password })
+      const res = await axios.post(`${API_URL}/auth/login`, { email, password })
       onLogin(res.data.user, res.data.token)
       addToast('Welcome to The Date Crew! 💕', 'success')
       navigate('/dashboard')
@@ -45,7 +46,7 @@ export default function LoginPage({ onLogin }) {
   const handleGoogleLogin = async () => {
     setGoogleLoading(true)
     try {
-      const res = await axios.post('/auth/google', { token: 'mock' })
+      const res = await axios.post(`${API_URL}/auth/google`, { token: 'mock' })
       onLogin(res.data.user, res.data.token)
       addToast('Welcome to The Date Crew! 💕', 'success')
       navigate('/dashboard')

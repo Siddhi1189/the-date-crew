@@ -1,3 +1,4 @@
+import { API_URL } from '../config'
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -51,7 +52,7 @@ export default function Dashboard({ user, token, onLogout }) {
         }
       })
 
-      const res = await axios.get('/api/matches', { params })
+      const res = await axios.get(`${API_URL}/api/matches`, { params })
       setMatches(res.data.matches || [])
     } catch (err) {
       addToast('Failed to load matches. Please try again.', 'error')

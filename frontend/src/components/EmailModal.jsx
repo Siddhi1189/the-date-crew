@@ -1,3 +1,4 @@
+import { API_URL } from '../config'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { X, Loader2, Send, Sparkles } from 'lucide-react'
@@ -23,7 +24,7 @@ export default function EmailModal({ match, user, onClose }) {
   useEffect(() => {
     const fetchIntro = async () => {
       try {
-        const res = await axios.post('/api/ai/intro', {
+        const res = await axios.post(`${API_URL}/api/ai/intro`, {
           user_id: user?.id || user?.user_id,
           match_id: matchId
         })
@@ -42,7 +43,7 @@ export default function EmailModal({ match, user, onClose }) {
   const handleSend = async () => {
     setSendLoading(true)
     try {
-      await axios.post('/api/email/send', {
+      await axios.post(`${API_URL}/api/email/send`, {
           user_id: user?.id || user?.user_id,
         match_id: matchId,
         message: introText

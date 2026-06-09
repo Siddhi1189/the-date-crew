@@ -1,3 +1,4 @@
+import { API_URL } from '../config'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import {
@@ -19,7 +20,7 @@ export default function MyProfile({ user, token, onLogout }) {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get('/api/profiles/me')
+        const res = await axios.get(`${API_URL}/api/profiles/me`)
         setProfile(res.data)
       } catch {
         // Fallback to user data from auth

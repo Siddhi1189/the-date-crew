@@ -1,3 +1,4 @@
+import { API_URL } from '../config'
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -95,7 +96,7 @@ export default function ProfileDetail({ user, token, onLogout }) {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const res = await axios.get(`/api/match/${id}`);
+        const res = await axios.get(`${API_URL}/api/match/${id}`);
         setData(res.data);
       } catch (err) {
         addToast("Failed to load profile. Please try again.", "error");
@@ -112,7 +113,7 @@ export default function ProfileDetail({ user, token, onLogout }) {
     if (!data) return;
     const fetchInsight = async () => {
       try {
-        const res = await axios.post("/api/ai/insight", {
+        const res = await axios.post(`${API_URL}/api/ai/insight`, {
           user_id: user?.id || user?.user_id,
           match_id: id,
         });
